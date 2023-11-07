@@ -1,30 +1,98 @@
-const addBtn = document.querySelector(".addbtn");
-const mainInp = document.querySelector(".mainInp");
-const listBox = document.querySelector(".listItem");
-const savedTasks = JSON.parse(localStorage.getItem("tasks"));
+const input = document.querySelector(".mainInp");
+const button = document.querySelector(".addbtn");
+const listBox = document.querySelector(".listBox");
 
-savedTasks.forEach(item=>{
-    listBox.innerHTML+=`
-    <li class="listItem">${item}</li>
-    `
-})
 
-addBtn.addEventListener("click", function (){
-    let paragraph = document.createElement("li");
-    paragraph.classList.add("listText");
-    listBox.appendChild(paragraph);
-    paragraph.innerHTML = mainInp.value;
+const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    const taskItems = document.querySelectorAll(".listItem li");
+savedTasks.forEach((item) => {
+  const listItem = document.createElement("li");
+  listItem.classList.add("listItem");
+  const listText = document.createElement("p");
+  listText.classList.add("listText");
+  listText.textContent = item;
+  listItem.appendChild(listText);
+
+  const itemIcons = document.createElement("div");
+  itemIcons.classList.add("itemIcons");
+
+  const editIcon = document.createElement("img");
+  editIcon.src = "./assets/images/clarity_edit-line.svg";
+  editIcon.alt = "icon";
+
+  const deleteIcon = document.createElement("img");
+  deleteIcon.src = "./assets/images/fluent_delete-20-regular.svg";
+  deleteIcon.alt = "icon";
+
+  itemIcons.appendChild(editIcon);
+  itemIcons.appendChild(deleteIcon);
+
+  listItem.appendChild(itemIcons);
+  listBox.appendChild(listItem);
+});
+
+button.addEventListener("click", function () {
+  const taskText = input.value;
+  if (taskText.trim() === "") {
+    return;
+  }
+
+  const listItem = document.createElement("li");
+  listItem.classList.add("listItem");
+  const listText = document.createElement("p");
+  listText.classList.add("listText");
+  listText.textContent = taskText;
+  listItem.appendChild(listText);
+
+  const itemIcons = document.createElement("div");
+  itemIcons.classList.add("itemIcons");
+
+  const editIcon = document.createElement("img");
+  editIcon.src = "./assets/images/clarity_edit-line.svg";
+  editIcon.alt = "icon";
+
+  const deleteIcon = document.createElement("img");
+  deleteIcon.src = "./assets/images/fluent_delete-20-regular.svg";
+  deleteIcon.alt = "icon";
+
+  itemIcons.appendChild(editIcon);
+  itemIcons.appendChild(deleteIcon);
+
+  listItem.appendChild(itemIcons);
+  listBox.appendChild(listItem);
+
+  input.value = ""; 
+
+  const taskItems = document.querySelectorAll(".listBox li");
   const tasks = [];
   taskItems.forEach(function (item) {
-    tasks.push(item.textContent);
+    tasks.push(item.querySelector(".listText").textContent);
   });
   localStorage.setItem("tasks", JSON.stringify(tasks));
+});
 
-  taskItems.forEach(function (item) {
-    tasks.push(item.textContent);
+
+
+function deleteListItem(item) {
+  const listItem = item.closest(".listItem");
+  if (listItem) {
+    listItem.remove();
+
+    
+    const taskItems = document.querySelectorAll(".listBox li");
+    const tasks = [];
+    taskItems.forEach(function (item) {
+      tasks.push(item.querySelector(".listText").textContent);
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+}
+
+
+const deleteIcons = document.querySelectorAll(".listItem .itemIcons img[src='./assets/images/fluent_delete-20-regular.svg']");
+deleteIcons.forEach(function (icon) {
+  icon.addEventListener("click", function () {
+    deleteListItem(icon);
   });
-
-
-})
+});

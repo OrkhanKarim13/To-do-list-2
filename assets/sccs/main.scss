@@ -9,7 +9,7 @@
 .section {
   background-color: #b07289;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   .container {
     width: 60%;
     margin: 0 auto;
@@ -54,9 +54,11 @@
             border-radius: 10px;
             border: 2px solid #e53170;
             background: #fff;
-            padding: 5px 0;
+            padding:5px 10px;
             height: 37px;
             outline: none;
+            font-size: 20px;
+            font-weight: bold;we
             label {
               .fa-chevron-down {
                 color: #e53170;
@@ -66,11 +68,9 @@
           }
           .input:nth-child(2) {
             &:hover {
-              
-                .fa-chevron-down {
-                  transform: rotateZ(-180deg);
-                }
-              
+              .fa-chevron-down {
+                transform: rotateZ(-180deg);
+              }
             }
           }
           #select {
@@ -105,22 +105,29 @@
         justify-content: center;
         flex-direction: column;
         gap: 10px;
-        .listItem {
+        .listBox {
           width: 40%;
           margin: 0 auto;
+          flex-direction: column;
           display: flex;
           align-items: center;
-          border-radius: 11.694px;
-          background: #fff;
-          box-shadow: 0px 0px 9.35556px 0px #e5e5e5;
-          padding: 15px;
-          .listText {
+          gap: 10px;
+          .listItem {
             width: 85%;
-          }
-          .itemIcons {
-            width: 15%;
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            border-radius: 11.694px;
+            background: #fff;
+            padding: 15px;
+            box-shadow: 0px 0px 9.35556px 0px #e5e5e5;
+            .itemIcons {
+              width: 15%;
+              display: flex;
+              gap: 10px;
+            }
+            .listText{
+              font-weight: 600;
+            }
           }
         }
       }
