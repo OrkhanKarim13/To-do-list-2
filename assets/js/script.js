@@ -1,10 +1,10 @@
 const input = document.querySelector(".mainInp");
 const button = document.querySelector(".addbtn");
 const listBox = document.querySelector(".listBox");
-
+const select = document.querySelector("#select");
 
 const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
+let deleteIcons;
 savedTasks.forEach((item) => {
   const listItem = document.createElement("li");
   listItem.classList.add("listItem");
@@ -69,12 +69,14 @@ button.addEventListener("click", function () {
     tasks.push(item.querySelector(".listText").textContent);
   });
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  refreshItems()
 });
 
 
 
 function deleteListItem(item) {
   const listItem = item.closest(".listItem");
+  console.log("ListItem",listItem);
   if (listItem) {
     listItem.remove();
 
@@ -89,10 +91,12 @@ function deleteListItem(item) {
   }
 }
 
-
-const deleteIcons = document.querySelectorAll(".listItem .itemIcons img[src='./assets/images/fluent_delete-20-regular.svg']");
-deleteIcons.forEach(function (icon) {
-  icon.addEventListener("click", function () {
-    deleteListItem(icon);
+function refreshItems(){
+  deleteIcons = document.querySelectorAll(".listItem .itemIcons img[src='./assets/images/fluent_delete-20-regular.svg']");
+  deleteIcons.forEach(function (icon) {
+    icon.addEventListener("click", function () {
+      deleteListItem(icon);
+    });
   });
-});
+}
+refreshItems()
