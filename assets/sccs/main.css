@@ -62,9 +62,8 @@
   height: 37px;
   outline: none;
   font-size: 20px;
-  font-weight: bold;
 }
-.section .container .mainContent .inputs .input input we label .fa-chevron-down {
+.section .container .mainContent .inputs .input input label .fa-chevron-down {
   color: #e53170;
   transition: all 0.55s ease;
 }
@@ -110,19 +109,24 @@
   gap: 10px;
 }
 .section .container .mainContent .lists .listBox .listItem {
-  width: 85%;
   display: flex;
   justify-content: space-between;
+  width: 100%;
   border-radius: 11.694px;
   background: #fff;
   padding: 15px;
   box-shadow: 0px 0px 9.35556px 0px #e5e5e5;
 }
-.section .container .mainContent .lists .listBox .listItem .itemIcons {
+.section .container .mainContent .lists .listBox .listItem .topItem {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.section .container .mainContent .lists .listBox .listItem .topItem .listText {
+  width: 85%;
+}
+.section .container .mainContent .lists .listBox .listItem .topItem .itemIcons {
   width: 15%;
   display: flex;
   gap: 10px;
-}
-.section .container .mainContent .lists .listBox .listItem .listText {
-  font-weight: 600;
 }/*# sourceMappingURL=main.css.map */

@@ -3,16 +3,28 @@ const button = document.querySelector(".addbtn");
 const listBox = document.querySelector(".listBox");
 const select = document.querySelector("#select");
 
+
+
 const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let deleteIcons;
 savedTasks.forEach((item) => {
   const listItem = document.createElement("li");
+  const topItem = document.createElement("div");
+  const bottomItem = document.createElement("div");
+  const selectSpan = document.createElement("span"); 
   listItem.classList.add("listItem");
+  topItem.classList.add("topItem");
+  bottomItem.classList.add("bottomItem");
+  selectSpan.classList.add("selectSpan");
   const listText = document.createElement("p");
   listText.classList.add("listText");
   listText.textContent = item;
-  listItem.appendChild(listText);
+  listItem.appendChild(topItem);
+  listItem.appendChild(bottomItem);
+  topItem.appendChild(listText);
+  bottomItem.appendChild(selectSpan);
 
+  
   const itemIcons = document.createElement("div");
   itemIcons.classList.add("itemIcons");
 
@@ -27,12 +39,15 @@ savedTasks.forEach((item) => {
   itemIcons.appendChild(editIcon);
   itemIcons.appendChild(deleteIcon);
 
-  listItem.appendChild(itemIcons);
+  topItem.appendChild(itemIcons);
   listBox.appendChild(listItem);
+  
 });
 
 button.addEventListener("click", function () {
+
   const taskText = input.value;
+
   if (taskText.trim() === "") {
     return;
   }
@@ -43,6 +58,7 @@ button.addEventListener("click", function () {
   listText.classList.add("listText");
   listText.textContent = taskText;
   listItem.appendChild(listText);
+  
 
   const itemIcons = document.createElement("div");
   itemIcons.classList.add("itemIcons");
@@ -61,7 +77,43 @@ button.addEventListener("click", function () {
   listItem.appendChild(itemIcons);
   listBox.appendChild(listItem);
 
+
   input.value = ""; 
+
+// editIcon'a tıklandığında düzenleme işlevini ekle
+editIcon.addEventListener("click", function () {
+  const listItem = editIcon.closest(".listItem");
+  const listText = listItem.querySelector(".listText");
+
+  // Eğer bir düzenleme alanı zaten varsa, doğrudan o alanı seç
+  let editInput = listItem.querySelector(".editInput");
+
+  // Eğer düzenleme alanı yoksa, oluştur ve içeriği mevcut metinle doldur
+  if (!editInput) {
+    editInput = document.createElement("input");
+    editInput.classList.add("editInput");
+    editInput.value = listText.textContent;
+    listText.replaceWith(editInput); // Metin yerine düzenleme alanını ekle
+  }
+
+  // Düzenleme tamamlandığında Enter tuşuna basıldığında veya odak değiştiğinde
+  editInput.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      listText.textContent = editInput.value;
+      editInput.replaceWith(listText); // Düzenleme alanını metinle değiştir
+      updateLocalStorage(); // LocalStorage'ı güncelle
+    }
+  });
+
+  // Düzenleme alanından odak değiştiğinde
+  editInput.addEventListener("blur", function () {
+    listText.textContent = editInput.value;
+    editInput.replaceWith(listText); // Düzenleme alanını metinle değiştir
+    updateLocalStorage(); // LocalStorage'ı güncelle
+  });
+
+  editInput.focus(); // Düzenleme alanına odaklan
+});
 
   const taskItems = document.querySelectorAll(".listBox li");
   const tasks = [];
@@ -99,4 +151,7 @@ function refreshItems(){
     });
   });
 }
+
+
+
 refreshItems()
