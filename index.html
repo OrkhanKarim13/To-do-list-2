@@ -2,40 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/sccs/main.css" />
-    <script
-      src="https://kit.fontawesome.com/85a60fd075.js"
-      crossorigin="anonymous"
-    ></script>
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <section class="section">
-      <div class="container">
-        <div class="mainContent">
-          <div class="toDoTitle"><h3>To Do List</h3></div>
-          <div class="inputs">
-            <div class="input">
-              <label for="inp1">Title</label>
-              <input id="inp1" class="mainInp" type="text" />
-            </div>
-            <div class="input">
-              <label for="inp2"
-                >Priority <i class="fa-solid fa-chevron-down"></i></label
-              ><select name="select" id="select">
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-              </select>
-            </div>
-            <div class="addBtn"><button class="addbtn">Add new +</button></div>
-          </div>
-          <div class="lists">
-            <ul class="listBox"></ul>
-          </div>
+    <section class="container">
+    
+      <form id="todoForm">
+        <h1>To Do List</h1>
+        <div class="formContent">
+            <div class="addText">
+                <label for="task">Title:</label>
+                <input type="text" id="task" name="task" />
+              </div>
+              <div class="addPriority">
+                <label for="priority">Priority:</label>
+                <select id="priority" name="priority">
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              <button class="addBtn" type="submit">Add New</button>
         </div>
-      </div>
+        <ul id="taskList"></ul>
+      </form>
+
+      
     </section>
-    <script src="./assets/js/script.js"></script>
+
+    <script src="script.js"></script>
   </body>
 </html>
